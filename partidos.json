@@ -1,10 +1,55 @@
-[
-  {
-    "equipo1": "South Africa",
-    "equipo2": "Canada",
-    "marcador1": "0",
-    "marcador2": "1",
-    "estado": "Full Time",
-    "minuto": "90'+6'"
-  }
-]
+{
+  "partidos": [
+    {
+      "local": "Brazil",
+      "visitante": "Japan",
+      "golesLocal": 0,
+      "golesVisitante": 0,
+      "status": "Scheduled",
+      "minute": "",
+      "fecha": "29/06/2026 6pm"
+    },
+    {
+      "local": "Germany",
+      "visitante": "Paraguay",
+      "golesLocal": 0,
+      "golesVisitante": 0,
+      "status": "Scheduled", 
+      "minute": "",
+      "fecha": "29/06/2026 8pm"
+    },
+    {
+      "local": "Netherlands",
+      "visitante": "Morocco",
+      "golesLocal": 0,
+      "golesVisitante": 0,
+      "status": "Scheduled",
+      "minute": "",
+      "fecha": "29/06/2026 10pm"
+    },
+    {
+      "local": "South Africa",
+      "visitante": "Canada",
+      "golesLocal": 0,
+      "golesVisitante": 1,
+      "status": "Full Time",
+      "minute": "90+6'",
+      "fecha": "28/06/2026"
+    }
+  ],
+  "tabla": [
+    {"grupo": "A", "equipo": "Brazil", "puntos": 0, "goles": 0},
+    {"grupo": "A", "equipo": "Japan", "puntos": 0, "goles": 0},
+    {"grupo": "B", "equipo": "Germany", "puntos": 0, "goles": 0},
+    {"grupo": "B", "equipo": "Paraguay", "puntos": 0, "goles": 0},
+    {"grupo": "C", "equipo": "Netherlands", "puntos": 0, "goles": 0},
+    {"grupo": "C", "equipo": "Morocco", "puntos": 0, "goles": 0},
+    {"grupo": "D", "equipo": "Canada", "puntos": 3, "goles": 1},
+    {"grupo": "D", "equipo": "South Africa", "puntos": 0, "goles": 0}
+  ],
+  "goleadores": [
+    {"nombre": "Messi", "pais": "Argentina", "goles": 3},
+    {"nombre": "Mbappé", "pais": "France", "goles": 2},
+    {"nombre": "Vinicius Jr", "pais": "Brazil", "goles": 1}
+  ]
+}
