@@ -1,98 +1,218 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Quién Ganará? - Mundial</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background: #0f172a; 
-            color: white; 
-            padding: 20px;
-            text-align: center;
-        }
-        .partido { 
-            background: #1e293b; 
-            margin: 15px auto; 
-            padding: 20px; 
-            border-radius: 10px;
-            max-width: 500px;
-        }
-        .vs { font-size: 24px; font-weight: bold; margin: 10px 0; }
-        .marcador { font-size: 32px; color: #22c55e; }
-        .estado { color: #94a3b8; font-size: 14px; }
-        
-        .donar-box {
-            background: #1e293b;
-            max-width: 500px;
-            margin: 25px auto;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 14px;
-            line-height: 1.5;
-            border: 1px solid #334155;
-        }
-        .donar-btns {
-            margin-top: 12px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 8px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .paypal { background: #0070ba; color: white; }
-        .binance { background: #F3BA2F; color: black; }
-        .venezuela {
-            font-size: 18px;
-            margin-right: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quién Ganará? - Mundial 2026</title>
+  <style>
+    :root {
+      --bg: #0a0e27;
+      --card: #1a1f3a;
+      --text: #ffffff;
+      --accent: #00d26a;
+      --secondary: #2d3561;
+    }
+    [data-theme="light"] {
+      --bg: #f0f2f5;
+      --card: #ffffff;
+      --text: #1c1e21;
+      --accent: #0084ff;
+      --secondary: #e4e6eb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: all 0.3s;
+      padding: 20px;
+    }
+   .container { max-width: 900px; margin: 0 auto; }
+   .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    h1 { font-size: 28px; }
+   .theme-toggle {
+      background: var(--card);
+      border: none;
+      color: var(--text);
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+   .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+   .partido {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+   .marcador {
+      font-size: 48px;
+      font-weight: bold;
+      color: var(--accent);
+      margin: 10px 0;
+    }
+   .estado { font-size: 14px; opacity: 0.7; }
+   .minuto { 
+      color: #ff4444; 
+      font-weight: bold; 
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0.5; } }
+   .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+   .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 5px;
+      border: none;
+      cursor: pointer;
+    }
+   .btn-paypal { background: #0070ba; color: white; }
+   .btn-binance { background: #f3ba2f; color: black; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--secondary); }
+    th { color: var(--accent); }
+   .visitas {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--card);
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+   .donacion { text-align: center; }
+  </style>
 </head>
 <body>
-    <h1>⚽ Resultados Mundial</h1>
-    <div id="partidos">Cargando...</div>
-
-    <!-- CAJA DE DONACIÓN -->
-    <div class="donar-box">
-        <div>
-            <span class="venezuela">🇻🇪🖤</span>
-            Hola, soy de Venezuela. Quiero compartirles datos en vivo del Mundial. Si deseas apoyar esta buena obra te lo agradezco de corazón, saludos 🤗
-        </div>
-        <div class="donar-btns">
-            <a href="https://paypal.me/lacr1914" target="_blank" class="btn paypal">Donar con PayPal</a>
-            <a href="https://app.binance.com/uni-qr/FdqRtb16" target="_blank" class="btn binance">Donar con Binance</a>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>⚽ Resultados Mundial 2026</h1>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
     </div>
 
-    <script>
-        async function cargarPartidos() {
-            try {
-                const res = await fetch('partidos.json?v=' + Date.now());
-                const partidos = await res.json();
-                
-                const html = partidos.map(p => `
-                    <div class="partido">
-                        <div class="vs">${p.equipo1} vs ${p.equipo2}</div>
-                        <div class="marcador">${p.marcador1} - ${p.marcador2}</div>
-                        <div class="estado">${p.estado} - ${p.minuto}</div>
-                    </div>
-                `).join('');
-                
-                document.getElementById('partidos').innerHTML = html || 'No hay partidos hoy';
-            } catch (e) {
-                document.getElementById('partidos').innerHTML = 'Error cargando partidos';
-            }
+    <div id="partido-en-vivo" class="card"></div>
+    
+    <div class="card">
+      <h2>📅 Próximos Partidos</h2>
+      <div id="proximos"></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>🏆 Tabla de Posiciones</h2>
+        <div id="tabla"></div>
+      </div>
+      
+      <div class="card donacion">
+  <p><strong>VE ❤️ Hola, soy de Venezuela. Quiero compartirles datos en vivo del Mundial.</strong></p>
+  <p>Si deseas apoyar esta buena obra te lo agradezco de corazón, saludos 🫂</p>
+  <a href="https://paypal.me/lacr1914" class="btn btn-paypal" target="_blank">Donar con PayPal</a>
+  <a href="https://app.binance.com/uni-qr/FdqRtb16" class="btn btn-binance" target="_blank">Donar con Binance</a>
+</div>
+
+    <div class="card">
+      <h2>💬 Comentarios</h2>
+      <div id="disqus_thread"></div>
+    </div>
+  </div>
+
+  <div class="visitas">👁️ <span id="contador">0</span> visitas</div>
+
+  <script>
+    // Modo oscuro/claro
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light'? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      document.querySelector('.theme-toggle').textContent = next === 'light'? '🌙' : '☀️';
+    }
+    const saved = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    document.querySelector('.theme-toggle').textContent = saved === 'light'? '🌙' : '☀️';
+
+    // Contador de visitas
+    fetch('https://api.countapi.xyz/hit/mundial-pixel/visitas')
+     .then(res => res.json())
+     .then(data => document.getElementById('contador').textContent = data.value);
+
+    // Banderas de países
+    const banderas = {
+      'South Africa': '🇿🇦', 'Canada': '🇨🇦', 'Brazil': '🇧🇷', 'Argentina': '🇦🇷',
+      'Mexico': '🇲🇽', 'USA': '🇺🇸', 'Germany': '🇩🇪', 'Spain': '🇪🇸',
+      'France': '🇫🇷', 'England': '🏴󐁧󐁢󐁥󐁮󐁧󐁿', 'Portugal': '🇵🇹', 'Venezuela': '🇻🇪'
+    };
+
+    // Cargar datos
+    fetch('partidos.json')
+     .then(res => res.json())
+     .then(data => {
+        // Partido en vivo o último
+        const enVivo = data.partidos.find(p => p.status === 'In Progress') || data.partidos[0];
+        if (enVivo) {
+          const vivo = enVivo.status === 'In Progress'? '<span class="minuto">● EN VIVO ' + enVivo.minute + '\'</span>' : 'Full Time - ' + enVivo.minute;
+          document.getElementById('partido-en-vivo').innerHTML = `
+            <div class="partido">
+              ${banderas[enVivo.local] || ''} ${enVivo.local} vs ${enVivo.visitante} ${banderas[enVivo.visitante] || ''}
+            </div>
+            <div class="marcador">${enVivo.golesLocal} - ${enVivo.golesVisitante}</div>
+            <div class="estado">${vivo}</div>
+          `;
         }
-        
-        cargarPartidos();
-        setInterval(cargarPartidos, 60000);
-    </script>
+
+        // Próximos partidos
+        const proximos = data.partidos.filter(p => p.status === 'Scheduled').slice(0, 3);
+        document.getElementById('proximos').innerHTML = proximos.map(p => `
+          <p>${banderas[p.local] || ''} ${p.local} vs ${p.visitante} ${banderas[p.visitante] || ''} - ${p.fecha}</p>
+        `).join('') || '<p>No hay partidos programados</p>';
+
+        // Tabla de posiciones
+        if (data.tabla) {
+          let tablaHTML = '<table><tr><th>Grupo</th><th>Equipo</th><th>Pts</th><th>GF</th></tr>';
+          data.tabla.forEach(t => {
+            tablaHTML += `<tr><td>${t.grupo}</td><td>${banderas[t.equipo] || ''} ${t.equipo}</td><td>${t.puntos}</td><td>${t.goles}</td></tr>`;
+          });
+          document.getElementById('tabla').innerHTML = tablaHTML + '</table>';
+        }
+
+        // Goleadores
+        if (data.goleadores) {
+          document.getElementById('goleadores').innerHTML = data.goleadores.map((g, i) => 
+            `<p>${i+1}. ${banderas[g.pais] || ''} ${g.nombre} - ${g.goles} goles</p>`
+          ).join('');
+        }
+      });
+
+    // Chat Disqus - Cambia 'mundial-pixel' por tu nombre
+    var disqus_config = function () {
+      this.page.url = 'https://mundial-pixel.github.io/whowillwin/';
+      this.page.identifier = 'mundial2026';
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://mundial-pixel.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
 </body>
 </html>
