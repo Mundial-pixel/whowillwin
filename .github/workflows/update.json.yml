@@ -2,7 +2,7 @@ name: Actualizar Resultados Mundial
 
 on:
   schedule:
-    - cron: '* * * * *'  # Cada 1 minuto
+    - cron: '*/5 * * * *'  # Cada 5 minutos
   workflow_dispatch:
 
 jobs:
