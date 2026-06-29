@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quién Ganará? - Mundial</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0f172a; 
+            color: white; 
+            padding: 20px;
+            text-align: center;
+        }
+        .partido { 
+            background: #1e293b; 
+            margin: 15px auto; 
+            padding: 20px; 
+            border-radius: 10px;
+            max-width: 500px;
+        }
+        .vs { font-size: 24px; font-weight: bold; margin: 10px 0; }
+        .marcador { font-size: 32px; color: #22c55e; }
+        .estado { color: #94a3b8; font-size: 14px; }
+        
+        .donar-box {
+            background: #1e293b;
+            max-width: 500px;
+            margin: 25px auto;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid #334155;
+        }
+        .donar-btns {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .paypal { background: #0070ba; color: white; }
+        .binance { background: #F3BA2F; color: black; }
+        .venezuela {
+            font-size: 18px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚽ Resultados Mundial</h1>
+    <div id="partidos">Cargando...</div>
+
+    <!-- CAJA DE DONACIÓN -->
+    <div class="donar-box">
+        <div>
+            <span class="venezuela">🇻🇪🖤</span>
+            Hola, soy de Venezuela. Quiero compartirles datos en vivo del Mundial. Si deseas apoyar esta buena obra te lo agradezco de corazón, saludos 🤗
+        </div>
+        <div class="donar-btns">
+            <a href="https://paypal.me/lacr1914" target="_blank" class="btn paypal">Donar con PayPal</a>
+            <a href="https://app.binance.com/uni-qr/FdqRtb16" target="_blank" class="btn binance">Donar con Binance</a>
+        </div>
+    </div>
+
+    <script>
+        async function cargarPartidos() {
+            try {
+                const res = await fetch('partidos.json?v=' + Date.now());
+                const partidos = await res.json();
+                
+                const html = partidos.map(p => `
+                    <div class="partido">
+                        <div class="vs">${p.equipo1} vs ${p.equipo2}</div>
+                        <div class="marcador">${p.marcador1} - ${p.marcador2}</div>
+                        <div class="estado">${p.estado} - ${p.minuto}</div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('partidos').innerHTML = html || 'No hay partidos hoy';
+            } catch (e) {
+                document.getElementById('partidos').innerHTML = 'Error cargando partidos';
+            }
+        }
+        
+        cargarPartidos();
+        setInterval(cargarPartidos, 60000);
+    </script>
+</body>
+</html>
